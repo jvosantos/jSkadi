@@ -20,7 +20,7 @@ class LedMatrix implements Runnable {
   final int SPI_RATE = 10000000;
   final GpioPinDigitalOutput OE;
 
-  LedMatrix() {
+  LedMatrix() throws IOException {
     // Initializing message queue.
     messages = new LinkedList<String>();
 
@@ -31,7 +31,7 @@ class LedMatrix implements Runnable {
     // Initializing SPI.
     com.pi4j.wiringpi.Gpio.wiringPiSetup();
     if(Spi.wiringPiSPISetup(CHANNEL, SPI_RATE) <= -1) {
-      throw IOException;
+      throw new IOException();
     }
 
     byte reset[] = {(byte) 0x00, (byte) 0x00};
@@ -41,18 +41,24 @@ class LedMatrix implements Runnable {
     OE.high();
   }
 
-  void run() {
+  public void run() {
     OE.high();
-    while(message.size() == 0) {
-      sleep(5);
+    while(messages.size() == 0) {
+      try {
+        Thread.sleep(5);
+      } catch (InterruptedException ie) {
+        System.out.println("InterruptedException caught...");
+      }
     }
 
-
+    for(String message : messages) {
+      System.out.println(message);
+    }
 
     OE.low();
   }
 
-  void addNewMessage(String message) {
+  void addMessage(String message) {
     messages.add(message);
   }
 }
