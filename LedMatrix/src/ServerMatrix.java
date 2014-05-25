@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -7,9 +5,8 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.ServerSocket;
 
-
 class ServerMatrix {
-  public static void main(String args[]) throws IOException, InterruptedException {
+  public static void main(String args[]) {
     int portnumber = 3410;
     boolean emote = false;
     ServerSocket server = null;
