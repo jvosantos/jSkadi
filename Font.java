@@ -106,7 +106,7 @@ class Font{
     {(byte) 0x00, (byte) 0x38, (byte) 0x60, (byte) 0xF0, (byte) 0x60, (byte) 0x60, (byte) 0x60, (byte) 0x60},	// Char 102 (f)
     {(byte) 0x00, (byte) 0x7C, (byte) 0xC6, (byte) 0xC6, (byte) 0xC6, (byte) 0x7E, (byte) 0x06, (byte) 0x7C},	// Char 103 (g)
     {(byte) 0x00, (byte) 0xC0, (byte) 0xC0, (byte) 0xFC, (byte) 0xC6, (byte) 0xC6, (byte) 0xC6, (byte) 0xC6},	// Char 104 (h)
-    {(byte) 0x00, (byte) 0xC0, (byte) 0x00, (byte) 0xC0, (byte) 0xC0, (byte) 0xC0, (byte) 0xC0, (byte) 0xC0},	// Char 105 (i)
+    {(byte) 0x00, (byte) 0x18, (byte) 0x00, (byte) 0x18, (byte) 0x18, (byte) 0x18, (byte) 0x18, (byte) 0x18}, // Char 105 (i)
     {(byte) 0x30, (byte) 0x00, (byte) 0xF0, (byte) 0x30, (byte) 0x30, (byte) 0x30, (byte) 0x30, (byte) 0xE0},	// Char 106 (j)
     {(byte) 0x00, (byte) 0xC0, (byte) 0xC0, (byte) 0xCC, (byte) 0xD8, (byte) 0xF0, (byte) 0xD8, (byte) 0xCC},	// Char 107 (k)
     {(byte) 0x00, (byte) 0xC0, (byte) 0xC0, (byte) 0xC0, (byte) 0xC0, (byte) 0xC0, (byte) 0xC0, (byte) 0xC0},	// Char 108 (l)
@@ -259,11 +259,10 @@ class Font{
     {(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00}	// Char 255 (.)
   };
 
-  private static byte getLineByte(char c, short line) {
-    return font[c][line];
-  }
-
-  private static byte getLineByte(char c, short line, short shift_amount) {
-    return font[c][line];
+  public static byte getByte(int line, char c) throws IndexOutOfBoundsException {
+    if(line < 0 || line > 7) {
+      throw new IndexOutOfBoundsException();
+    }
+    return font[(int) c][line];
   }
 }
